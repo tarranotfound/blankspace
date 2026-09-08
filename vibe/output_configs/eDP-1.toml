@@ -1,0 +1,17 @@
+enable = true
+overlay = false
+
+[[components]]
+
+[components.Bars]
+max_height = 0.75
+placement = "Bottom"
+format = "BassTreble"
+
+[components.Bars.audio_conf]
+amount_bars = 40
+up = 0.77
+down = 4.0
+
+[components.Bars.variant]
+Color = "#1f222dff"

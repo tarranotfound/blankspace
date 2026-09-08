@@ -1,0 +1,3 @@
+[graphics_config]
+power_preference = "low-power"
+backend = "VULKAN"
