@@ -50,7 +50,6 @@ local menu = "fuzzel"
 -- Or execute your favorite apps at launch like this:
 --
 -- hl.on("hyprland.start", function () 
-hl.exec_cmd("kitty --single-instance --override initial_window_width=640 --override initial_window_height=360")
 --   hl.exec_cmd("nm-applet")
 --   hl.exec_cmd("waybar")
 --   hl.exec_cmd("awww-daemon")
@@ -130,7 +129,7 @@ inactive_border = "rgb(1f222d)",
             enabled      = true,
             range        = 4,
             render_power = 3,
-            color        = fffff,
+            color        = ffffff,
         },
 
         blur = {

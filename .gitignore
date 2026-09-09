@@ -1,0 +1,11 @@
+# Backup files
+*.bak
+*.backup
+*~
+
+# Temporary files
+*.tmp
+*.swp
+
+# Logs
+*.log
