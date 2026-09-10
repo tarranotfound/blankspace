@@ -2,10 +2,21 @@
 *.bak
 *.backup
 *~
+*.old
 
 # Temporary files
 *.tmp
+*.temp
 *.swp
+*.swo
 
 # Logs
 *.log
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.directory
+
+# Local / machine-specific configs
+*.local
