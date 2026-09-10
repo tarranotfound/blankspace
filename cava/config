@@ -1,0 +1,23 @@
+[general]
+framerate = 60
+bars = 0
+
+[input]
+method = pipewire
+source = auto
+
+[output]
+method = ncurses
+channels = stereo
+mono_option = average
+
+[color]
+theme = "noctalia"
+gradient = 1
+gradient_count = 3
+gradient_color_1 = '#ffffff'
+gradient_color_2 = '#9cbd82'
+gradient_color_3 = '#6fa35a'
+
+[smoothing]
+noise_reduction = 0.77
