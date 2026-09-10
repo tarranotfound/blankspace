@@ -1,35 +1,49 @@
-# blankspace
-white and black rice
+# BLANKSPACE
 
-screenshots
-![blankspace](2026-09-08_20-19-12.png)
+> **A clean black & white Hyprland rice.**
+>
+> Minimal, monochrome, and focused on keeping the desktop simple.
 
-## Components
+![Blankspace](2026-09-08_20-19-12.png)
 
-- Hyprland
-- Kitty
-- Fuzzel
-- Hyprlock
-- Noctalia
-- Vibe
+## ✦ About
 
-## Requirements
+**Blankspace** is my personal Hyprland rice for Arch Linux.
 
-- Arch Linux
-- Hyprland
-- Kitty
-- Fuzzel
-- Hyprlock
-- util calendar
-- IMD Grotesk
-- JetBrains Mono Nerd Font
+The idea behind Blankspace is the opposite of a busy desktop: **black, white, clean, and distraction-free**. It is built from simple configurations that can be used individually or together as a complete rice.
 
-## Installation
+## 🎨 Style
 
-> **Note:** Blankspace is a personal Hyprland rice made for Arch Linux. Some configuration may need to be adjusted depending on your hardware and installed packages.
- Requirements
+- Black & white aesthetic
+- Minimal UI
+- Clean and sharp layout
+- No unnecessary visual effects
+- Terminal-focused workflow
+- Lightweight and easy to customize
 
+## 🧩 Components
 
+- **Hyprland** — window manager
+- **Kitty** — terminal
+- **Fuzzel** — application launcher
+- **Hyprlock** — lock screen
+- **Noctalia** — desktop components / wallpaper environment
+- **Vibe** — visual/background component
+
+## 📁 Structure
+
+```text
+blankspace/
+├── hyprland/      # Hyprland configuration
+├── kitty/         # Kitty terminal configuration
+├── fuzzel/        # Fuzzel launcher configuration
+├── hyprlock/      # Hyprlock configuration
+├── noctalia/      # Noctalia configuration
+├── vibe/          # Vibe configuration
+└── README.md
+```
+
+## ⚡ Installation
 
 ### 1. Clone the repository
 
@@ -38,90 +52,98 @@ git clone https://github.com/tarranotfound/blankspace.git
 cd blankspace
 ```
 
-### 2. Back up your existing configuration
+### 2. Back up your existing configs
 
-Before installing, back up your current configs:
+Before replacing any configuration, make a backup of the configs you currently use.
 
 ```bash
 mkdir -p ~/.config/blankspace-backup
 
-cp -r ~/.config/hypr ~/.config/blankspace-backup/ 2>/dev/null
-cp -r ~/.config/kitty ~/.config/blankspace-backup/ 2>/dev/null
-cp -r ~/.config/fuzzel ~/.config/blankspace-backup/ 2>/dev/null
-cp -r ~/.config/hyprlock ~/.config/blankspace-backup/ 2>/dev/null
-cp -r ~/.config/waybar ~/.config/blankspace-backup/ 2>/dev/null
+cp -r ~/.config/hypr ~/.config/blankspace-backup/ 2>/dev/null || true
+cp -r ~/.config/kitty ~/.config/blankspace-backup/ 2>/dev/null || true
+cp -r ~/.config/fuzzel ~/.config/blankspace-backup/ 2>/dev/null || true
+cp -r ~/.config/hyprlock ~/.config/blankspace-backup/ 2>/dev/null || true
+cp -r ~/.config/noctalia ~/.config/blankspace-backup/ 2>/dev/null || true
+cp -r ~/.config/vibe ~/.config/blankspace-backup/ 2>/dev/null || true
 ```
 
 ### 3. Install the configurations
 
-Copy the configurations into `~/.config`:
+Copy the components you want to use:
 
 ```bash
 cp -r hyprland ~/.config/hypr
 cp -r kitty ~/.config/kitty
 cp -r fuzzel ~/.config/fuzzel
 cp -r hyprlock ~/.config/hyprlock
-cp -r waybar ~/.config/waybar
-```
-
-If you also use the other components included in this repository, copy them as needed:
-
-```bash
 cp -r noctalia ~/.config/noctalia
 cp -r vibe ~/.config/vibe
 ```
 
-### 4. Install required packages
+You can also install only individual components instead of using the complete rice.
 
-On Arch Linux, install the main dependencies with:
+### 4. Install dependencies
+
+On Arch Linux, install the main packages with:
 
 ```bash
-sudo pacman -S git hyprland kitty fuzzel hyprlock waybar
+sudo pacman -S git hyprland kitty fuzzel hyprlock
 ```
 
-Additional components may require packages from the AUR or their respective upstream projects.
+Noctalia and Vibe may be installed separately depending on the version and installation method you use.
 
 ### 5. Fonts
 
-Install the fonts required by the configuration.
+Blankspace uses:
 
-For example, if using Nerd Fonts:
+- **JetBrains Mono Nerd Font**
+- **IMD Grotesk**
+
+For JetBrains Mono Nerd Font on Arch:
 
 ```bash
 sudo pacman -S ttf-jetbrains-mono-nerd
 ```
 
-Make sure the font names used in the configuration are installed on your system.
+Make sure the other font is installed if it is referenced by your configuration.
 
-### 6. Restart Hyprland
+### 6. Reload Hyprland
 
-After copying the configurations, restart your Hyprland session.
-
-You can also reload Hyprland without logging out:
+After installing the configuration, reload Hyprland:
 
 ```bash
 hyprctl reload
 ```
 
-### Notes
+For a completely fresh session, restart Hyprland instead.
 
-This repository is primarily intended for my own setup.
+## ⚠️ Hardware & Configuration Notes
 
-Hardware-specific settings, monitor configuration, input devices, wallpapers, and application paths may need to be changed before using Blankspace on another machine.
+Blankspace is a **personal rice**, not a universal installer.
 
-**Always review the configuration before replacing your existing dotfiles.**
+Before using it on another machine, review:
 
+- Monitor configuration
+- Input devices
+- Keybinds
+- Wallpapers
+- Application paths
+- Hardware-specific settings
 
-## Structure
+Some configuration values may need to be changed for your system.
 
-hyprland/
-kitty/
-fuzzel/
-hyprlock/
-noctalia/
-vibe/
+## 🤝 Feedback
 
-## Notes
+Blankspace is an open-source learning project. Suggestions, criticism, and improvements are welcome.
 
-This is primarily my personal configuration.
-Some paths and settings may need to be changed.
+If you like the rice, consider giving the repository a ⭐.
+
+## 📸 Screenshots
+
+The screenshot above shows the current Blankspace setup.
+
+More screenshots and configuration updates will be added as the rice evolves.
+
+---
+
+**Made while learning Linux, Hyprland, and dotfiles.**
