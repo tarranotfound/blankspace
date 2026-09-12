@@ -8,9 +8,19 @@
 
 ## ✦ About
 
-**Blankspace** is my personal Hyprland rice for Arch Linux.
+**Blankspace** is my personal Hyprland rice for Arch Linux and one of my open-source learning projects.
 
-The idea behind Blankspace is the opposite of a busy desktop: **black, white, clean, and distraction-free**. It is built from simple configurations that can be used individually or together as a complete rice.
+The idea is simple: **black, white, clean, and distraction-free**. Every component can be used separately or together as a complete rice.
+
+## 🧩 Components
+
+- **Hyprland** — window manager and keybinds
+- **Kitty** — terminal
+- **Fuzzel** — application launcher
+- **Hyprlock** — lock screen + calendar script
+- **Noctalia** — desktop components / wallpaper environment
+- **Vibe** — visual/background component
+- **Cava** — audio visualizer config
 
 ## 🎨 Style
 
@@ -21,44 +31,35 @@ The idea behind Blankspace is the opposite of a busy desktop: **black, white, cl
 - Terminal-focused workflow
 - Lightweight and easy to customize
 
-## 🧩 Components
-
-- **Hyprland** — window manager
-- **Kitty** — terminal
-- **Fuzzel** — application launcher
-- **Hyprlock** — lock screen
-- **Noctalia** — desktop components / wallpaper environment
-- **Vibe** — visual/background component
-
 ## 📁 Structure
 
 ```text
 blankspace/
-├── hyprland/      # Hyprland configuration
-├── kitty/         # Kitty terminal configuration
-├── fuzzel/        # Fuzzel launcher configuration
-├── hyprlock/      # Hyprlock configuration
-├── noctalia/      # Noctalia configuration
-├── vibe/          # Vibe configuration
-└── README.md
+├── cava/                 # Cava config
+├── fuzzel/               # Fuzzel launcher + theme
+├── hyprland/             # Hyprland Lua config
+├── hyprlock/             # Hyprlock config + calendar script
+├── kitty/                # Kitty terminal + colors
+├── noctalia/             # Noctalia config + palette
+├── vibe/                 # Vibe config + output config
+├── README.md
+├── LICENSE
+└── CONTRIBUTING.md
 ```
 
 ## ⚡ Installation
 
-### 1. Clone the repository
+### 1. Clone
 
 ```bash
 git clone https://github.com/tarranotfound/blankspace.git
 cd blankspace
 ```
 
-### 2. Back up your existing configs
-
-Before replacing any configuration, make a backup of the configs you currently use.
+### 2. Back up your current configs
 
 ```bash
 mkdir -p ~/.config/blankspace-backup
-
 cp -r ~/.config/hypr ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/kitty ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/fuzzel ~/.config/blankspace-backup/ 2>/dev/null || true
@@ -67,9 +68,7 @@ cp -r ~/.config/noctalia ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/vibe ~/.config/blankspace-backup/ 2>/dev/null || true
 ```
 
-### 3. Install the configurations
-
-Copy the components you want to use:
+### 3. Install the components
 
 ```bash
 cp -r hyprland ~/.config/hypr
@@ -78,48 +77,49 @@ cp -r fuzzel ~/.config/fuzzel
 cp -r hyprlock ~/.config/hyprlock
 cp -r noctalia ~/.config/noctalia
 cp -r vibe ~/.config/vibe
+cp -r cava ~/.config/cava
 ```
 
-You can also install only individual components instead of using the complete rice.
+> You can install only the components you want. Review the configs first if your hardware or paths differ.
 
-### 4. Install dependencies
+### 4. Dependencies
 
-On Arch Linux, install the main packages with:
+On Arch Linux, the main packages are:
 
 ```bash
-sudo pacman -S git hyprland kitty fuzzel hyprlock
+sudo pacman -S git hyprland kitty fuzzel hyprlock cava
 ```
 
 Noctalia and Vibe may be installed separately depending on the version and installation method you use.
 
 ### 5. Fonts
 
-Blankspace uses:
+The rice uses:
 
 - **JetBrains Mono Nerd Font**
 - **IMD Grotesk**
 
-For JetBrains Mono Nerd Font on Arch:
+Install JetBrains Mono Nerd Font on Arch with:
 
 ```bash
 sudo pacman -S ttf-jetbrains-mono-nerd
 ```
 
-Make sure the other font is installed if it is referenced by your configuration.
+Install IMD Grotesk separately if it is not already installed on your system.
 
-### 6. Reload Hyprland
+### 6. Reload
 
-After installing the configuration, reload Hyprland:
+After installing or changing the Hyprland configuration:
 
 ```bash
 hyprctl reload
 ```
 
-For a completely fresh session, restart Hyprland instead.
+For other components, restart the relevant application or service.
 
 ## ⚠️ Hardware & Configuration Notes
 
-Blankspace is a **personal rice**, not a universal installer.
+Blankspace is a **personal rice, not a universal installer**.
 
 Before using it on another machine, review:
 
@@ -129,20 +129,19 @@ Before using it on another machine, review:
 - Wallpapers
 - Application paths
 - Hardware-specific settings
+- Vibe output configuration
 
-Some configuration values may need to be changed for your system.
+Some values are intentionally specific to the author's setup.
 
-## 🤝 Feedback
+## 🤝 Contributing
 
 Blankspace is an open-source learning project. Suggestions, criticism, and improvements are welcome.
 
-If you like the rice, consider giving the repository a ⭐.
+See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 ## 📸 Screenshots
 
-The screenshot above shows the current Blankspace setup.
-
-More screenshots and configuration updates will be added as the rice evolves.
+The screenshot above shows the current Blankspace setup. More screenshots and configuration updates may be added as the rice evolves.
 
 ---
 
