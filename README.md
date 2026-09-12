@@ -21,10 +21,11 @@ The idea is simple: **black, white, clean, and distraction-free**. Every compone
 - **Noctalia** — desktop components / wallpaper environment
 - **Vibe** — visual/background component
 - **Cava** — audio visualizer config
+- **btop** — system monitor with a white/green theme
 
 ## 🎨 Style
 
-- Black & white aesthetic
+- Black & white aesthetic with soft green accents
 - Minimal UI
 - Clean and sharp layout
 - No unnecessary visual effects
@@ -35,6 +36,7 @@ The idea is simple: **black, white, clean, and distraction-free**. Every compone
 
 ```text
 blankspace/
+├── btop/                 # btop config and Blankspace theme
 ├── cava/                 # Cava config
 ├── fuzzel/               # Fuzzel launcher + theme
 ├── hyprland/             # Hyprland Lua config
@@ -66,6 +68,8 @@ cp -r ~/.config/fuzzel ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/hyprlock ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/noctalia ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/vibe ~/.config/blankspace-backup/ 2>/dev/null || true
+cp -r ~/.config/cava ~/.config/blankspace-backup/ 2>/dev/null || true
+cp -r ~/.config/btop ~/.config/blankspace-backup/ 2>/dev/null || true
 ```
 
 ### 3. Install the components
@@ -78,6 +82,7 @@ cp -r hyprlock ~/.config/hyprlock
 cp -r noctalia ~/.config/noctalia
 cp -r vibe ~/.config/vibe
 cp -r cava ~/.config/cava
+cp -r btop ~/.config/btop
 ```
 
 > You can install only the components you want. Review the configs first if your hardware or paths differ.
@@ -87,7 +92,7 @@ cp -r cava ~/.config/cava
 On Arch Linux, the main packages are:
 
 ```bash
-sudo pacman -S git hyprland kitty fuzzel hyprlock cava
+sudo pacman -S git hyprland kitty fuzzel hyprlock cava btop
 ```
 
 Noctalia and Vibe may be installed separately depending on the version and installation method you use.
@@ -130,6 +135,7 @@ Before using it on another machine, review:
 - Application paths
 - Hardware-specific settings
 - Vibe output configuration
+- btop theme and config paths
 
 Some values are intentionally specific to the author's setup.
 
