@@ -8,6 +8,7 @@ Blankspace is a clean black-and-white rice with soft green accents. This directo
 - Blankspace keybinds and minimal window-management settings
 - Optional startup helper for Waybar and other components
 - Preflight checker for required files and commands
+- Keybind reference
 - Notes for adapting the setup to different hardware
 
 ## Requirements
@@ -42,6 +43,10 @@ chmod +x check.sh
 ```
 
 The checker reports whether Niri, the optional applications, `config.kdl`, and `startup.sh` are available. It does not modify your system.
+
+## Keybind reference
+
+See [`keybinds.md`](keybinds.md) for the main application, navigation, and window-movement shortcuts.
 
 ## Startup helper
 
