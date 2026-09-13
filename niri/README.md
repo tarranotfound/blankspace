@@ -7,6 +7,7 @@ Blankspace is a clean black-and-white rice with soft green accents. This directo
 - Niri starter configuration
 - Blankspace keybinds and minimal window-management settings
 - Optional startup helper for Waybar and other components
+- Preflight checker for required files and commands
 - Notes for adapting the setup to different hardware
 
 ## Requirements
@@ -30,6 +31,17 @@ You do not need every component. Review commands, monitor names, and input setti
 6. Reload Niri or log in again.
 
 This is a starter configuration, not a universal installer. Hardware, installed applications, and Niri versions may require adjustments.
+
+## Preflight check
+
+Run the checker from this directory before applying the configuration:
+
+```bash
+chmod +x check.sh
+./check.sh
+```
+
+The checker reports whether Niri, the optional applications, `config.kdl`, and `startup.sh` are available. It does not modify your system.
 
 ## Startup helper
 
