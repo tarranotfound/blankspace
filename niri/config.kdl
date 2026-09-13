@@ -17,6 +17,9 @@ prefer-no-csd
 
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
+// Start the optional Blankspace session helper.
+spawn-at-startup "bash" "-c" "bash ~/.config/niri/startup.sh"
+
 binds {
     Mod+Return { spawn "kitty"; }
     Mod+D { spawn "fuzzel"; }
