@@ -6,6 +6,7 @@ Blankspace is a clean black-and-white rice with soft green accents. This directo
 
 - Niri starter configuration
 - Blankspace keybinds and minimal window-management settings
+- Optional startup helper for Waybar and other components
 - Notes for adapting the setup to different hardware
 
 ## Requirements
@@ -17,11 +18,22 @@ You do not need every component. Review commands, monitor names, and input setti
 ## Installation
 
 1. Back up your current Niri configuration.
-2. Copy the future `config.kdl` into `~/.config/niri/config.kdl`.
-3. Review monitor, input, keybind, and application settings.
-4. Reload Niri or log in again.
+2. Copy `config.kdl` into `~/.config/niri/config.kdl`.
+3. Copy `startup.sh` into `~/.config/niri/startup.sh` if you want the optional startup helper.
+4. Make the helper executable:
+
+   ```bash
+   chmod +x ~/.config/niri/startup.sh
+   ```
+
+5. Review monitor, input, keybind, and application settings.
+6. Reload Niri or log in again.
 
 This is a starter configuration, not a universal installer. Hardware, installed applications, and Niri versions may require adjustments.
+
+## Startup helper
+
+`startup.sh` checks whether optional commands exist before launching them. Missing applications are skipped so they do not block the session.
 
 ## Style
 
