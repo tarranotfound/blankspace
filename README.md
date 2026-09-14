@@ -22,6 +22,7 @@ The idea is simple: **black, white, clean, and distraction-free**. Every compone
 - **Vibe** — visual/background component
 - **Cava** — audio visualizer config
 - **btop** — system monitor with a white/green theme
+- **Neovim** — lightweight editor configuration
 
 ## 🎨 Style
 
@@ -43,6 +44,7 @@ blankspace/
 ├── hyprlock/             # Hyprlock config + calendar script
 ├── kitty/                # Kitty terminal + colors
 ├── noctalia/             # Noctalia config + palette
+├── nvim/                 # Lightweight Neovim config
 ├── vibe/                 # Vibe config + output config
 ├── README.md
 ├── LICENSE
@@ -70,6 +72,7 @@ cp -r ~/.config/noctalia ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/vibe ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/cava ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/btop ~/.config/blankspace-backup/ 2>/dev/null || true
+cp -r ~/.config/nvim ~/.config/blankspace-backup/ 2>/dev/null || true
 ```
 
 ### 3. Install the components
@@ -83,6 +86,7 @@ cp -r noctalia ~/.config/noctalia
 cp -r vibe ~/.config/vibe
 cp -r cava ~/.config/cava
 cp -r btop ~/.config/btop
+cp -r nvim ~/.config/nvim
 ```
 
 > You can install only the components you want. Review the configs first if your hardware or paths differ.
@@ -92,7 +96,7 @@ cp -r btop ~/.config/btop
 On Arch Linux, the main packages are:
 
 ```bash
-sudo pacman -S git hyprland kitty fuzzel hyprlock cava btop
+sudo pacman -S git hyprland kitty fuzzel hyprlock cava btop neovim
 ```
 
 Noctalia and Vibe may be installed separately depending on the version and installation method you use.
@@ -136,6 +140,7 @@ Before using it on another machine, review:
 - Hardware-specific settings
 - Vibe output configuration
 - btop theme and config paths
+- Neovim configuration and keymaps
 
 Some values are intentionally specific to the author's setup.
 
