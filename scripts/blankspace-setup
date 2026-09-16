@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly GREEN='\033[32m'
+readonly RESET='\033[0m'
+readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+readonly REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+
+if [[ ${EUID} -eq 0 ]]; then
+  printf '%bDo not run Blankspace Setup as root.%b\n' "$GREEN" "$RESET" >&2
+  exit 1
+fi
+
+for command_name in bash sudo pacman; do
+  if ! command -v "$command_name" >/dev/null 2>&1; then
+    printf 'Missing required command: %s\n' "$command_name" >&2
+    exit 1
+  fi
+done
+
+if ! command -v gum >/dev/null 2>&1; then
+  printf 'Blankspace Setup needs gum for its terminal menu.\n'
+  read -r -p 'Install gum with pacman? [y/N] ' answer
+  if [[ $answer =~ ^[Yy]$ ]]; then
+    sudo pacman -S --needed gum
+  else
+    printf 'gum is required. Exiting.\n' >&2
+    exit 1
+  fi
+fi
+
+components=(
+  'Hyprland|hyprland|hypr'
+  'Kitty|kitty|kitty'
+  'Fuzzel|fuzzel|fuzzel'
+  'Hyprlock|hyprlock|hyprlock'
+  'Noctalia|noctalia|noctalia'
+  'Vibe|vibe|vibe'
+  'Cava|cava|cava'
+  'btop|btop|btop'
+  'Neovim|neovim|nvim'
+)
+
+labels=()
+declare -A packages
+for item in "${components[@]}"; do
+  label=${item%%|*}
+  remainder=${item#*|}
+  package=${remainder%%|*}
+  config_name=${remainder##*|}
+  labels+=("$label")
+  packages["$label"]="$package|$config_name"
+done
+
+selected=$(printf '%s\n' "${labels[@]}" | gum choose --no-limit --header='Select Blankspace components:') || exit 0
+
+if [[ -z ${selected//[[:space:]]/} ]]; then
+  printf 'No components selected. Exiting.\n'
+  exit 0
+fi
+
+install_packages=()
+while IFS= read -r label; do
+  [[ -z $label ]] && continue
+  install_packages+=("${packages[$label]%%|*}")
+done <<< "$selected"
+
+printf '%bBLANKSPACE SETUP%b\n\n' "$GREEN" "$RESET"
+printf 'Selected packages:\n'
+printf '  - %s\n' "${install_packages[@]}"
+printf '\n'
+
+gum confirm 'Install selected packages?' || exit 0
+sudo pacman -S --needed "${install_packages[@]}"
+
+gum confirm 'Deploy selected Blankspace configs?' || exit 0
+
+while IFS= read -r label; do
+  [[ -z $label ]] && continue
+  config_name=${packages[$label]##*|}
+  source="$REPO_ROOT/$config_name"
+  target="$HOME/.config/$config_name"
+
+  if [[ ! -d "$source" ]]; then
+    printf '  No config found for %s; skipped.\n' "$label"
+    continue
+  fi
+
+  mkdir -p "$target"
+  cp -a "$source/." "$target/"
+  printf '  Deployed: %s -> %s\n' "$label" "$target"
+done <<< "$selected"
+
+printf '\nBlankspace Setup finished.\n'
