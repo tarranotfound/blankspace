@@ -5,6 +5,7 @@ readonly GREEN='\033[32m'
 readonly RESET='\033[0m'
 readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 readonly REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+readonly BACKUP_ROOT="$HOME/.local/share/blankspace/backups"
 
 if [[ ${EUID} -eq 0 ]]; then
   printf '%bDo not run Blankspace Setup as root.%b\n' "$GREEN" "$RESET" >&2
@@ -74,6 +75,27 @@ gum confirm 'Install selected packages?' || exit 0
 sudo pacman -S --needed "${install_packages[@]}"
 
 gum confirm 'Deploy selected Blankspace configs?' || exit 0
+
+backup_timestamp=$(date +%Y%m%d-%H%M%S)
+backup_dir="$BACKUP_ROOT/$backup_timestamp"
+mkdir -p "$backup_dir"
+printf 'Creating backup: %s\n' "$backup_dir"
+
+while IFS= read -r label; do
+  [[ -z $label ]] && continue
+  config_name=${packages[$label]##*|}
+  target="$HOME/.config/$config_name"
+
+  if [[ -e "$target" ]]; then
+    cp -a "$target" "$backup_dir/"
+    printf '  Backed up: %s\n' "$target"
+  else
+    touch "$backup_dir/.missing-$config_name"
+    printf '  Skipped: %s (not found)\n' "$target"
+  fi
+done <<< "$selected"
+
+printf 'Backup saved to: %s\n\n' "$backup_dir"
 
 while IFS= read -r label; do
   [[ -z $label ]] && continue
