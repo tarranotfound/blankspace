@@ -30,7 +30,7 @@ if ! command -v gum >/dev/null 2>&1; then
 fi
 
 components=(
-  'Hyprland|hyprland|hypr'
+  'Hyprland|hyprland|hyprland'
   'Kitty|kitty|kitty'
   'Fuzzel|fuzzel|fuzzel'
   'Hyprlock|hyprlock|hyprlock'
