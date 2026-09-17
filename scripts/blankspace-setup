@@ -73,6 +73,24 @@ printf 'Selected packages:\n'
 printf '  - %s\n' "${install_packages[@]}"
 printf '\n'
 
+missing_packages=()
+for package in "${install_packages[@]}"; do
+  if pacman -Si "$package" >/dev/null 2>&1 || pacman -Qi "$package" >/dev/null 2>&1; then
+    printf '  [ok] %s\n' "$package"
+  else
+    printf '  [missing] %s\n' "$package"
+    missing_packages+=("$package")
+  fi
+done
+
+if (( ${#missing_packages[@]} > 0 )); then
+  printf '\nUnavailable packages detected:\n'
+  printf '  - %s\n' "${missing_packages[@]}"
+  printf '\nInstallation cancelled. Check your package names or repositories.\n' >&2
+  exit 1
+fi
+
+printf '\n'
 gum confirm 'Install selected packages?' || exit 0
 sudo pacman -S --needed "${install_packages[@]}"
 
