@@ -12,18 +12,31 @@ Usage: blankspace-setup-dry-run [--help]
 
 Check Blankspace Setup dependencies, repository layout, and installer coverage
 without installing packages, creating backups, or deploying configs.
+
+Options:
+  --help       Show this help message.
+
+The dry-run accepts no additional arguments.
 EOF
 }
 
-if [[ ${1:-} == '--help' ]]; then
-  usage
-  exit 0
-fi
-
-if [[ $# -gt 0 ]]; then
-  printf 'Unknown option: %s\n' "$1" >&2
-  usage >&2
-  exit 1
+if (( $# > 0 )); then
+  case "$1" in
+    --help)
+      if (( $# != 1 )); then
+        printf '%s\n' 'Error: --help does not accept additional arguments.' >&2
+        usage >&2
+        exit 1
+      fi
+      usage
+      exit 0
+      ;;
+    *)
+      printf 'Unknown option: %s\n' "$1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
 fi
 
 if [[ ${EUID} -eq 0 ]]; then
