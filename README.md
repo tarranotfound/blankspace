@@ -64,7 +64,9 @@ The recommended method is the interactive terminal installer:
 ./scripts/blankspace-setup
 ```
 
-The installer lets you select individual components, checks that selected packages are available, installs them with `pacman`, and deploys the matching configs.
+The installer lets you select individual components, validates that the selected package names are available to `pacman`, installs them, creates a timestamped config backup, and deploys the matching configs.
+
+The installer accepts one option at a time. Extra arguments are rejected instead of being silently ignored.
 
 To see the available components and their package/config mappings without starting the installer:
 
@@ -88,6 +90,8 @@ If deployment fails, the installer attempts to restore the previous configs from
 
 > Review the configs first if your hardware, paths, or installed applications differ from the author's setup.
 
+> **Note:** Noctalia and Vibe may not be available from the standard Arch repositories. The installer validates the package names before installation, so install those components separately when your chosen installation method does not provide them through `pacman`.
+
 ### Option 2 — Dry run
 
 To inspect the installer requirements and repository layout without installing, backing up, or deploying anything:
@@ -101,6 +105,8 @@ Show the available dry-run options with:
 ```bash
 ./scripts/blankspace-setup-dry-run --help
 ```
+
+The dry-run also rejects unknown or extra arguments and exits non-zero when required commands or repository components are missing.
 
 ### Option 3 — Manual installation
 
