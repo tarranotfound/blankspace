@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly GREEN='\033[32m'
+readonly RESET='\033[0m'
+readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+readonly REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+
+usage() {
+  cat <<'EOF'
+Usage: blankspace-setup-dry-run [--help]
+
+Check Blankspace Setup dependencies, repository layout, and installer coverage
+without installing packages, creating backups, or deploying configs.
+EOF
+}
+
+if [[ ${1:-} == '--help' ]]; then
+  usage
+  exit 0
+fi
+
+if [[ $# -gt 0 ]]; then
+  printf 'Unknown option: %s\n' "$1" >&2
+  usage >&2
+  exit 1
+fi
+
+if [[ ${EUID} -eq 0 ]]; then
+  printf '%bDo not run the Blankspace dry-run as root.%b\n' "$GREEN" "$RESET" >&2
+  exit 1
+fi
+
+status=0
+
+printf '%bBLANKSPACE SETUP DRY-RUN%b\n\n' "$GREEN" "$RESET"
+printf 'Required commands:\n'
+
+for command_name in bash sudo pacman gum; do
+  if command -v "$command_name" >/dev/null 2>&1; then
+    printf '  [ok] %s\n' "$command_name"
+  else
+    printf '  [missing] %s\n' "$command_name"
+    status=1
+  fi
+done
+
+printf '\nRepository layout:\n'
+
+config_dirs=(
+  'hyprland'
+  'kitty'
+  'fuzzel'
+  'hyprlock'
+  'noctalia'
+  'vibe'
+  'cava'
+  'btop'
+  'nvim'
+)
+
+for config_dir in "${config_dirs[@]}"; do
+  if [[ -d "$REPO_ROOT/$config_dir" ]]; then
+    printf '  [ok] %s/\n' "$config_dir"
+  else
+    printf '  [missing] %s/\n' "$config_dir"
+    status=1
+  fi
+done
+
+printf '\nInstaller component coverage:\n'
+
+components=(
+  'Hyprland|hyprland|hyprland'
+  'Kitty|kitty|kitty'
+  'Fuzzel|fuzzel|fuzzel'
+  'Hyprlock|hyprlock|hyprlock'
+  'Noctalia|noctalia|noctalia'
+  'Vibe|vibe|vibe'
+  'Cava|cava|cava'
+  'btop|btop|btop'
+  'Neovim|neovim|nvim'
+)
+
+for item in "${components[@]}"; do
+  label=${item%%|*}
+  remainder=${item#*|}
+  package=${remainder%%|*}
+  config_name=${remainder##*|}
+
+  if [[ -d "$REPO_ROOT/$config_name" ]]; then
+    printf '  [ok] %s -> %s (%s)\n' "$label" "$config_name" "$package"
+  else
+    printf '  [missing] %s -> %s (%s)\n' "$label" "$config_name" "$package"
+    status=1
+  fi
+done
+
+printf '\n'
+if [[ $status -eq 0 ]]; then
+  printf 'Dry-run passed. No changes were made.\n'
+else
+  printf 'Dry-run found problems. No changes were made.\n' >&2
+fi
+
+exit "$status"
