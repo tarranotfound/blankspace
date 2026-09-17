@@ -11,15 +11,23 @@ BACKUP_DIR=''
 
 usage() {
   cat <<'EOF'
-Usage: blankspace-setup [--help]
+Usage: blankspace-setup [--help] [--dry-run]
 
 Interactively install Blankspace components, create a backup, and deploy configs.
+
+Options:
+  --help       Show this help message.
+  --dry-run    Validate dependencies and repository layout without making changes.
 EOF
 }
 
 if [[ ${1:-} == '--help' ]]; then
   usage
   exit 0
+fi
+
+if [[ ${1:-} == '--dry-run' ]]; then
+  exec "$SCRIPT_DIR/blankspace-setup-dry-run"
 fi
 
 if [[ $# -gt 0 ]]; then
