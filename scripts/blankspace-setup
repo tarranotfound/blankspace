@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly VERSION='0.1.0'
+readonly VERSION='0.1.1'
 readonly GREEN='\033[32m'
 readonly RESET='\033[0m'
 readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
@@ -12,7 +12,7 @@ BACKUP_DIR=''
 
 usage() {
   cat <<'EOF'
-Usage: blankspace-setup [--help] [--dry-run] [--version] [--list]
+Usage: blankspace-setup [--help | --dry-run | --version | --list]
 
 Interactively install Blankspace components, create a backup, and deploy configs.
 
@@ -21,21 +21,52 @@ Options:
   --dry-run    Validate dependencies and repository layout without making changes.
   --version    Show the installer version.
   --list       Show available components and their package/config mapping.
+
+Options are mutually exclusive and must be provided without additional arguments.
 EOF
 }
 
-if [[ ${1:-} == '--help' ]]; then
-  usage
-  exit 0
-fi
-
-if [[ ${1:-} == '--version' ]]; then
-  printf 'Blankspace Setup %s\n' "$VERSION"
-  exit 0
-fi
-
-if [[ ${1:-} == '--dry-run' ]]; then
-  exec "$SCRIPT_DIR/blankspace-setup-dry-run"
+if (( $# > 0 )); then
+  case "$1" in
+    --help)
+      if (( $# != 1 )); then
+        printf '%s\n' 'Error: --help does not accept additional arguments.' >&2
+        usage >&2
+        exit 1
+      fi
+      usage
+      exit 0
+      ;;
+    --version)
+      if (( $# != 1 )); then
+        printf '%s\n' 'Error: --version does not accept additional arguments.' >&2
+        usage >&2
+        exit 1
+      fi
+      printf 'Blankspace Setup %s\n' "$VERSION"
+      exit 0
+      ;;
+    --dry-run)
+      if (( $# != 1 )); then
+        printf '%s\n' 'Error: --dry-run does not accept additional arguments.' >&2
+        usage >&2
+        exit 1
+      fi
+      exec "$SCRIPT_DIR/blankspace-setup-dry-run"
+      ;;
+    --list)
+      if (( $# != 1 )); then
+        printf '%s\n' 'Error: --list does not accept additional arguments.' >&2
+        usage >&2
+        exit 1
+      fi
+      ;;
+    *)
+      printf 'Unknown option: %s\n' "$1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
 fi
 
 components=(
