@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+readonly VERSION='0.1.0'
 readonly GREEN='\033[32m'
 readonly RESET='\033[0m'
 readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
@@ -11,18 +12,24 @@ BACKUP_DIR=''
 
 usage() {
   cat <<'EOF'
-Usage: blankspace-setup [--help] [--dry-run]
+Usage: blankspace-setup [--help] [--dry-run] [--version]
 
 Interactively install Blankspace components, create a backup, and deploy configs.
 
 Options:
   --help       Show this help message.
   --dry-run    Validate dependencies and repository layout without making changes.
+  --version    Show the installer version.
 EOF
 }
 
 if [[ ${1:-} == '--help' ]]; then
   usage
+  exit 0
+fi
+
+if [[ ${1:-} == '--version' ]]; then
+  printf 'Blankspace Setup %s\n' "$VERSION"
   exit 0
 fi
 
