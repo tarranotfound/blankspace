@@ -12,7 +12,7 @@ BACKUP_DIR=''
 
 usage() {
   cat <<'EOF'
-Usage: blankspace-setup [--help] [--dry-run] [--version]
+Usage: blankspace-setup [--help] [--dry-run] [--version] [--list]
 
 Interactively install Blankspace components, create a backup, and deploy configs.
 
@@ -20,6 +20,7 @@ Options:
   --help       Show this help message.
   --dry-run    Validate dependencies and repository layout without making changes.
   --version    Show the installer version.
+  --list       Show available components and their package/config mapping.
 EOF
 }
 
@@ -35,6 +36,30 @@ fi
 
 if [[ ${1:-} == '--dry-run' ]]; then
   exec "$SCRIPT_DIR/blankspace-setup-dry-run"
+fi
+
+components=(
+  'Hyprland|hyprland|hyprland'
+  'Kitty|kitty|kitty'
+  'Fuzzel|fuzzel|fuzzel'
+  'Hyprlock|hyprlock|hyprlock'
+  'Noctalia|noctalia|noctalia'
+  'Vibe|vibe|vibe'
+  'Cava|cava|cava'
+  'btop|btop|btop'
+  'Neovim|neovim|nvim'
+)
+
+if [[ ${1:-} == '--list' ]]; then
+  printf '%bBlankspace Setup components:%b\n\n' "$GREEN" "$RESET"
+  for item in "${components[@]}"; do
+    label=${item%%|*}
+    remainder=${item#*|}
+    package=${remainder%%|*}
+    config_name=${remainder##*|}
+    printf '  %-10s -> package: %-10s config: %s\n' "$label" "$package" "$config_name"
+  done
+  exit 0
 fi
 
 if [[ $# -gt 0 ]]; then
@@ -65,18 +90,6 @@ if ! command -v gum >/dev/null 2>&1; then
     exit 1
   fi
 fi
-
-components=(
-  'Hyprland|hyprland|hyprland'
-  'Kitty|kitty|kitty'
-  'Fuzzel|fuzzel|fuzzel'
-  'Hyprlock|hyprlock|hyprlock'
-  'Noctalia|noctalia|noctalia'
-  'Vibe|vibe|vibe'
-  'Cava|cava|cava'
-  'btop|btop|btop'
-  'Neovim|neovim|nvim'
-)
 
 labels=()
 declare -A packages
