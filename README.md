@@ -45,6 +45,9 @@ blankspace/
 ├── kitty/                # Kitty terminal + colors
 ├── noctalia/             # Noctalia config + palette
 ├── nvim/                 # Lightweight Neovim config
+├── scripts/
+│   ├── blankspace-setup          # Interactive installer
+│   └── blankspace-setup-dry-run  # Installer checks without changes
 ├── vibe/                 # Vibe config + output config
 ├── README.md
 ├── LICENSE
@@ -53,14 +56,50 @@ blankspace/
 
 ## ⚡ Installation
 
-### 1. Clone
+### Option 1 — Setup installer
+
+The recommended method is the interactive terminal installer:
+
+```bash
+./scripts/blankspace-setup
+```
+
+The installer lets you select individual components, checks that selected packages are available, installs them with `pacman`, and deploys the matching configs.
+
+Before deployment it automatically creates a timestamped backup under:
+
+```text
+~/.local/share/blankspace/backups/
+```
+
+If deployment fails, the installer attempts to restore the previous configs from that backup. Configs that did not exist before deployment are removed during rollback.
+
+> Review the configs first if your hardware, paths, or installed applications differ from the author's setup.
+
+### Option 2 — Dry run
+
+To inspect the installer requirements and repository layout without installing, backing up, or deploying anything:
+
+```bash
+./scripts/blankspace-setup-dry-run
+```
+
+Show the available dry-run options with:
+
+```bash
+./scripts/blankspace-setup-dry-run --help
+```
+
+### Option 3 — Manual installation
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/tarranotfound/blankspace.git
 cd blankspace
 ```
 
-### 2. Back up your current configs
+Back up your current configs before manually copying anything:
 
 ```bash
 mkdir -p ~/.config/blankspace-backup
@@ -75,7 +114,7 @@ cp -r ~/.config/btop ~/.config/blankspace-backup/ 2>/dev/null || true
 cp -r ~/.config/nvim ~/.config/blankspace-backup/ 2>/dev/null || true
 ```
 
-### 3. Install the components
+Then copy the components you want:
 
 ```bash
 cp -r hyprland ~/.config/hypr
@@ -89,9 +128,7 @@ cp -r btop ~/.config/btop
 cp -r nvim ~/.config/nvim
 ```
 
-> You can install only the components you want. Review the configs first if your hardware or paths differ.
-
-### 4. Dependencies
+## 📦 Dependencies
 
 On Arch Linux, the main packages are:
 
@@ -99,9 +136,11 @@ On Arch Linux, the main packages are:
 sudo pacman -S git hyprland kitty fuzzel hyprlock cava btop neovim
 ```
 
+The setup installer also requires `gum` for its terminal menu and can offer to install it when missing.
+
 Noctalia and Vibe may be installed separately depending on the version and installation method you use.
 
-### 5. Fonts
+## 🔤 Fonts
 
 The rice uses:
 
@@ -116,7 +155,7 @@ sudo pacman -S ttf-jetbrains-mono-nerd
 
 Install IMD Grotesk separately if it is not already installed on your system.
 
-### 6. Reload
+## 🔄 Reload
 
 After installing or changing the Hyprland configuration:
 
@@ -128,7 +167,7 @@ For other components, restart the relevant application or service.
 
 ## ⚠️ Hardware & Configuration Notes
 
-Blankspace is a **personal rice, not a universal installer**.
+Blankspace is a **personal rice, not a universal configuration**.
 
 Before using it on another machine, review:
 
