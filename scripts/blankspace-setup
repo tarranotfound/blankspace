@@ -9,6 +9,25 @@ readonly BACKUP_ROOT="$HOME/.local/share/blankspace/backups"
 
 BACKUP_DIR=''
 
+usage() {
+  cat <<'EOF'
+Usage: blankspace-setup [--help]
+
+Interactively install Blankspace components, create a backup, and deploy configs.
+EOF
+}
+
+if [[ ${1:-} == '--help' ]]; then
+  usage
+  exit 0
+fi
+
+if [[ $# -gt 0 ]]; then
+  printf 'Unknown option: %s\n' "$1" >&2
+  usage >&2
+  exit 1
+fi
+
 if [[ ${EUID} -eq 0 ]]; then
   printf '%bDo not run Blankspace Setup as root.%b\n' "$GREEN" "$RESET" >&2
   exit 1
