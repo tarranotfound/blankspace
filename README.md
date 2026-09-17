@@ -66,6 +66,18 @@ The recommended method is the interactive terminal installer:
 
 The installer lets you select individual components, checks that selected packages are available, installs them with `pacman`, and deploys the matching configs.
 
+To see the available components and their package/config mappings without starting the installer:
+
+```bash
+./scripts/blankspace-setup --list
+```
+
+You can also check the installer version:
+
+```bash
+./scripts/blankspace-setup --version
+```
+
 Before deployment it automatically creates a timestamped backup under:
 
 ```text
