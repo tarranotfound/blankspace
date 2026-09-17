@@ -7,6 +7,8 @@ readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 readonly REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 readonly BACKUP_ROOT="$HOME/.local/share/blankspace/backups"
 
+BACKUP_DIR=''
+
 if [[ ${EUID} -eq 0 ]]; then
   printf '%bDo not run Blankspace Setup as root.%b\n' "$GREEN" "$RESET" >&2
   exit 1
@@ -77,9 +79,9 @@ sudo pacman -S --needed "${install_packages[@]}"
 gum confirm 'Deploy selected Blankspace configs?' || exit 0
 
 backup_timestamp=$(date +%Y%m%d-%H%M%S)
-backup_dir="$BACKUP_ROOT/$backup_timestamp"
-mkdir -p "$backup_dir"
-printf 'Creating backup: %s\n' "$backup_dir"
+BACKUP_DIR="$BACKUP_ROOT/$backup_timestamp"
+mkdir -p "$BACKUP_DIR"
+printf 'Creating backup: %s\n' "$BACKUP_DIR"
 
 while IFS= read -r label; do
   [[ -z $label ]] && continue
@@ -87,30 +89,65 @@ while IFS= read -r label; do
   target="$HOME/.config/$config_name"
 
   if [[ -e "$target" ]]; then
-    cp -a "$target" "$backup_dir/"
+    cp -a "$target" "$BACKUP_DIR/"
     printf '  Backed up: %s\n' "$target"
   else
-    touch "$backup_dir/.missing-$config_name"
+    touch "$BACKUP_DIR/.missing-$config_name"
     printf '  Skipped: %s (not found)\n' "$target"
   fi
 done <<< "$selected"
 
-printf 'Backup saved to: %s\n\n' "$backup_dir"
+printf 'Backup saved to: %s\n\n' "$BACKUP_DIR"
 
-while IFS= read -r label; do
-  [[ -z $label ]] && continue
-  config_name=${packages[$label]##*|}
-  source="$REPO_ROOT/$config_name"
-  target="$HOME/.config/$config_name"
+rollback_configs() {
+  local label config_name target
 
-  if [[ ! -d "$source" ]]; then
-    printf '  No config found for %s; skipped.\n' "$label"
-    continue
-  fi
+  [[ -n $BACKUP_DIR && -d $BACKUP_DIR ]] || return 0
 
-  mkdir -p "$target"
-  cp -a "$source/." "$target/"
-  printf '  Deployed: %s -> %s\n' "$label" "$target"
-done <<< "$selected"
+  printf '\nDeployment failed. Restoring the previous configuration...\n'
+
+  while IFS= read -r label; do
+    [[ -z $label ]] && continue
+    config_name=${packages[$label]##*|}
+    target="$HOME/.config/$config_name"
+
+    rm -rf -- "$target"
+
+    if [[ -f "$BACKUP_DIR/.missing-$config_name" ]]; then
+      printf '  Removed new config: %s\n' "$target"
+    elif [[ -d "$BACKUP_DIR/$config_name" ]]; then
+      mkdir -p "$(dirname -- "$target")"
+      cp -a "$BACKUP_DIR/$config_name" "$target"
+      printf '  Restored: %s\n' "$target"
+    fi
+  done <<< "$selected"
+
+  printf 'Rollback finished.\n'
+}
+
+deploy_configs() {
+  local label config_name source target
+
+  while IFS= read -r label; do
+    [[ -z $label ]] && continue
+    config_name=${packages[$label]##*|}
+    source="$REPO_ROOT/$config_name"
+    target="$HOME/.config/$config_name"
+
+    if [[ ! -d "$source" ]]; then
+      printf '  No config found for %s; skipped.\n' "$label"
+      continue
+    fi
+
+    mkdir -p "$target"
+    cp -a "$source/." "$target/"
+    printf '  Deployed: %s -> %s\n' "$label" "$target"
+  done <<< "$selected"
+}
+
+if ! deploy_configs; then
+  rollback_configs
+  exit 1
+fi
 
 printf '\nBlankspace Setup finished.\n'
