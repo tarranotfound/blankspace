@@ -1,3 +1,4 @@
 [graphics_config]
+# Prefer lower-power rendering for a desktop background visualizer.
 power_preference = "low-power"
 backend = "VULKAN"
