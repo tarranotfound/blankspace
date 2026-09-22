@@ -1,7 +1,6 @@
 [general]
 avatar_image = ""
 
-
 [theme]
 mode = "dark"
 source = "builtin"
@@ -9,4 +8,5 @@ builtin = "Gruvbox"
 wallpaper = "session"
 
 [shell]
+# Keep the shell geometry sharp and minimal.
 corner_radius_scale = 0
