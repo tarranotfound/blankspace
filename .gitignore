@@ -20,3 +20,10 @@ Thumbs.db
 
 # Local / machine-specific configs
 *.local
+.env
+.env.*
+
+# Build and cache directories
+.cache/
+dist/
+build/
