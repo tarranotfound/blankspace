@@ -27,3 +27,6 @@ opt.timeoutlen = 400
 opt.laststatus = 3
 opt.showmode = false
 opt.fillchars = { eob = " " }
+
+-- Persist undo history between sessions.
+opt.undofile = true
