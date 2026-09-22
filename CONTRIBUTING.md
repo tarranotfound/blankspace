@@ -9,6 +9,7 @@ Thanks for checking out Blankspace. This is a personal Arch Linux / Hyprland ric
 - Do not commit personal paths, secrets, cache files, or backup files.
 - Keep changes focused on one component or problem.
 - Explain why a change is useful instead of only changing the appearance.
+- Prefer small commits with clear, imperative commit messages.
 
 ## Reporting a problem
 
@@ -32,6 +33,15 @@ For a pull request, explain:
 4. Whether the change was tested.
 
 Include screenshots when the visual result matters. Please avoid unrelated formatting changes so the history stays easy to follow.
+
+## Commit style
+
+Use short imperative messages such as:
+
+- `fix: correct Niri startup command`
+- `feat: add launcher theme`
+- `docs: clarify installation steps`
+- `chore: update ignored files`
 
 ## Notes
 
