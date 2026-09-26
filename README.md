@@ -214,3 +214,7 @@ The screenshot above shows the current Blankspace setup. More screenshots and co
 ---
 
 **Made while learning Linux, Hyprland, and dotfiles.**
+
+
+### Maintenance note
+Blankspace keeps component configuration separate so individual parts can be enabled or replaced without changing the rest of the rice.
