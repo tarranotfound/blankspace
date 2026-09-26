@@ -218,3 +218,7 @@ The screenshot above shows the current Blankspace setup. More screenshots and co
 
 ### Maintenance note
 Blankspace keeps component configuration separate so individual parts can be enabled or replaced without changing the rest of the rice.
+
+
+### Visual direction
+The interface favors sharp geometry, high contrast, and restrained accent colors rather than heavy effects.
