@@ -226,3 +226,6 @@ The interface favors sharp geometry, high contrast, and restrained accent colors
 
 ### 2026-09-29
 Small documentation cleanup and maintenance pass.
+
+### Component notes
+Each component can be configured independently.
