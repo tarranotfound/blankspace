@@ -244,3 +244,6 @@ Documentation is kept intentionally concise while the rice evolves.
 
 ### Component notes
 Each component is designed to remain independently configurable.
+
+### Configuration philosophy
+Readable defaults come before optional visual effects.
