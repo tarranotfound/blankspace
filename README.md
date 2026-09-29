@@ -241,3 +241,6 @@ Fuzzel provides a lightweight application launcher.
 
 ### Maintenance note
 Documentation is kept intentionally concise while the rice evolves.
+
+### Component notes
+Each component is designed to remain independently configurable.
