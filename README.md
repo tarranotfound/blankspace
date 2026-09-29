@@ -259,3 +259,6 @@ Hyprlock keeps the lock screen configuration separate.
 
 ### System monitoring
 btop is included for quick system visibility.
+
+### Audio visualization
+Cava is included as an optional visual component.
