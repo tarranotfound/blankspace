@@ -262,3 +262,6 @@ btop is included for quick system visibility.
 
 ### Audio visualization
 Cava is included as an optional visual component.
+
+### Customization
+Users can mix and match components to fit their setup.
