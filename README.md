@@ -250,3 +250,6 @@ Readable defaults come before optional visual effects.
 
 ### Terminal workflow
 Kitty and Neovim are the main terminal-focused tools.
+
+### Launcher workflow
+Fuzzel provides a lightweight application launcher.
