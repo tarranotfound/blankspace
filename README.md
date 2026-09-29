@@ -222,3 +222,7 @@ Blankspace keeps component configuration separate so individual parts can be ena
 
 ### Visual direction
 The interface favors sharp geometry, high contrast, and restrained accent colors rather than heavy effects.
+
+
+### 2026-09-29
+Small documentation cleanup and maintenance pass.
