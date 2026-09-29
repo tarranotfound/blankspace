@@ -232,3 +232,6 @@ Each component can be configured independently.
 
 ### Configuration philosophy
 Keep defaults readable before adding custom effects.
+
+### Terminal workflow
+Kitty and Neovim are the primary terminal-focused tools.
