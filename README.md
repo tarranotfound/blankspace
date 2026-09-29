@@ -229,3 +229,6 @@ Small documentation cleanup and maintenance pass.
 
 ### Component notes
 Each component can be configured independently.
+
+### Configuration philosophy
+Keep defaults readable before adding custom effects.
