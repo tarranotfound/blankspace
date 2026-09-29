@@ -265,3 +265,6 @@ Cava is included as an optional visual component.
 
 ### Customization
 Users can mix and match components to fit their setup.
+
+### Project status
+Blankspace continues to evolve alongside the author's Linux setup.
