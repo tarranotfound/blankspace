@@ -253,3 +253,6 @@ Kitty and Neovim are the main terminal-focused tools.
 
 ### Launcher workflow
 Fuzzel provides a lightweight application launcher.
+
+### Lock screen
+Hyprlock keeps the lock screen configuration separate.
