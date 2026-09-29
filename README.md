@@ -256,3 +256,6 @@ Fuzzel provides a lightweight application launcher.
 
 ### Lock screen
 Hyprlock keeps the lock screen configuration separate.
+
+### System monitoring
+btop is included for quick system visibility.
