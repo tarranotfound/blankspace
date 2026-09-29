@@ -247,3 +247,6 @@ Each component is designed to remain independently configurable.
 
 ### Configuration philosophy
 Readable defaults come before optional visual effects.
+
+### Terminal workflow
+Kitty and Neovim are the main terminal-focused tools.
